@@ -21,6 +21,8 @@ Install
 
 .. _`Install Homebrew`: http://brew.sh/#install
 
+4. iTerm2 > Preferences > Appearance: Enable "Show Border around window"
+
 
 SSH Configuration
 =================
