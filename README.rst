@@ -63,6 +63,8 @@ used at many shops::
     '
     source /usr/local/share/painted_iterm_include.sh
 
+(The ``source`` assumes you installed ``painted-iterm`` via Homebrew.)
+
 
 Helper Functions and Scripts
 ============================
