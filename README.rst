@@ -40,7 +40,8 @@ The following example paints the iTerm2 window color bright red::
         PermitLocalCommand yes
 
 The SSH configuration is the easiest way to configure iTerm2 window colors. It
-is also the only way to do so for appliances that don't have a bash shell.
+is also the only way to do so for appliances that don't have a bash shell. The
+SSH configuration is most commonly done only locally in ``~/.ssh/config``.
 
 
 ``.bashrc`` Configuration
@@ -61,9 +62,10 @@ used at many shops::
     DEV                 ^10\.10\.30\.|^10\.33\.33\.                 28
     last_default        .                                           11
     '
-    source /usr/local/share/painted_iterm_include.sh
+    source .painted_iterm_include.sh
 
-(The ``source`` assumes you installed ``painted-iterm`` via Homebrew.)
+The configured ``.bashrc`` and ``.painted_iterm_include.sh`` must exist on the
+remote host.
 
 
 Helper Functions and Scripts
