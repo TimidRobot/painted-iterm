@@ -13,7 +13,7 @@ Install
 1. `Install Homebrew`_ — The missing package manager for OS X
 2. Add the "tap"::
 
-    brew tap ClockworkNet/cmc
+    brew tap TimZehta/tap
 
 3. Install ``painted-iterm``::
 
