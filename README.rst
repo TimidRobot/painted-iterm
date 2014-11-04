@@ -71,8 +71,11 @@ Bin Scripts
 Resources
 =========
 
+- `Proprietary Escape Codes - Documentation - iTerm2`_
 - `256 Terminal colors and their 24bit equivalent (or similar)`_
 
+.. _`Proprietary Escape Codes - Documentation - iTerm2`:
+   http://iterm2.com/documentation-escape-codes.html
 .. _`256 Terminal colors and their 24bit equivalent (or similar)`:
    http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
 
