@@ -53,11 +53,12 @@ used at many shops::
 Bin Scripts
 ===========
 
-|painted-ansi|_: paints window color based on ANSI color code.
-
-|painted-rgb|_: paints window color based on R G B values.
-
-|painted-colors|_: shows 256 ANSI color codes.
+|painted-ansi|_ :
+    paints window color based on ANSI color code.
+|painted-rgb|_ :
+    paints window color based on R G B values.
+|painted-colors|_ :
+    shows 256 ANSI color codes.
 
 .. |painted-ansi| replace:: ``bin/painted-ansi``
 .. _painted-ansi: bin/painted-ansi
