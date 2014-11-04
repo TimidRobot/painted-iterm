@@ -59,7 +59,7 @@ Bin Scripts
 
 ``painted-colors``: shows 256 ANSI color codes.
 
-.. |painted-ansi| replace ``bin/painted-ansi``
+.. |painted-ansi| replace:: ``bin/painted-ansi``
 .. _painted-ansi: bin/painted-ansi
 
 
