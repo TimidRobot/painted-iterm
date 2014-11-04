@@ -7,6 +7,20 @@ your windows to help prevent errors. It supports 256 colors.
 
 .. _`iTerm2`: http://iterm2.com/
 
+Install
+=======
+
+1. `Install Homebrew`_ — The missing package manager for OS X
+2. Add the "tap"::
+
+    brew tap ClockworkNet/cmc
+
+3. Install ``painted-iterm``::
+
+    brew install painted-iterm
+
+.. _`Install Homebrew`: http://brew.sh/#install
+
 
 SSH Configuration
 =================
@@ -47,7 +61,7 @@ used at many shops::
     DEV                 ^10\.10\.30\.|^10\.33\.33\.                 28
     last_default        .                                           11
     '
-    source painted_iterm_include.sh
+    source /usr/local/share/painted_iterm_include.sh
 
 
 Bin Scripts

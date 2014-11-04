@@ -63,7 +63,7 @@ ansi_to_rgb=(   000-000-000 128-000-000 000-128-000 128-128-000 000-000-128
 #### FUNCTIONS ################################################################
 
 
-export_painted_color() {
+__export_painted_color() {
     # Compare hostname then ssh_connection IP to host/env table and export
     # PAINTED (ANSI color code)
 
@@ -118,7 +118,7 @@ export_painted_color() {
 }
 
 
-paint_iterm() {
+__paint_window() {
     # Set iTerm2 window color
     #
     # Args: ANSI
@@ -180,10 +180,10 @@ if [[ -z "${PAINTED_CONFIG:-}" ]]
 then
     echo 'WARNING: the PAINTED_CONFIG variable is not set' 1>&2
 else
-    export_painted_color
+    __export_painted_color
 
     # Activate for TERMs that might be in iTerm2
-    painted_prompt='[[ -n "${PAINTED:-}" ]] && paint_iterm ${PAINTED}'
+    painted_prompt='[[ -n "${PAINTED:-}" ]] && __paint_window ${PAINTED}'
     #painted_prompt='type -t getsetcolor >/dev/null && getsetcolor'
     case ${TERM} in
         rxvt*|screen*|xterm*)
