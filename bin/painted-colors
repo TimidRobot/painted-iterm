@@ -1,0 +1,93 @@
+#!/bin/bash
+#### SETUP ####################################################################
+set -o errexit
+set -o nounset
+
+prog="${0##*/}"
+usage="\
+Usage   ${prog}
+        ${prog} -h
+
+Show ANSI color codes for 256 colors
+"
+
+
+#### FUNCTIONS ################################################################
+
+
+color_block() {
+    local _ansi _len1 _len2 _pad
+    _ansi=${1}
+    if (( _ansi < 16 ))
+    then
+        _pad=7
+    else
+        _pad=10
+    fi
+    # variable length color block before color code
+    _len=$(( ${_pad} - ${#_ansi} ))
+    printf "\e[48;5;%dm%${_len}s" ${_ansi} ' '
+    # color code (black on white)
+    printf '\e[38;5;%dm\e[48;5;%dm%d' 0 15 ${_ansi}
+    # short color code block after color code
+    printf '\e[48;5;%dm ' ${_ansi}
+    # Reset text colors
+    printf '\e[0m'
+    printf '  '
+}
+
+
+help_print() {
+    # Print help/usage, then exit
+    echo "${usage}"
+    exit ${1:-0}
+}
+
+
+help_request_check() {
+    # Determine if help/usage has been requested and print it
+    for _arg in "${@}"
+    do
+        case "${_arg}" in
+            '-H' | '-h' | '-help' | '--help' | 'help' ) help_print ;;
+        esac
+    done
+    return 0
+}
+
+
+#### MAIN #####################################################################
+
+
+# Parse arguments
+help_request_check "${@:-}"
+
+# 16 colors
+echo
+for _a in {0..7}
+do
+    color_block ${_a}
+done
+echo
+for _a in {8..15}
+do
+    color_block ${_a}
+done
+echo
+
+# extended 256 colors
+echo
+col_index=0
+for _a in {16..255}
+do
+    (( _a == 232 )) && echo
+    color_block ${_a}
+    if (( col_index < 5 ))
+    then
+        col_index=$(( col_index + 1))
+    else
+        echo
+        col_index=0
+    fi
+done
+echo

@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# Set iterm2 window color
+#
+# Compatible with dash (compatible with POSIX 1003.2 and 1003.2a specifications
+# for the shell).
+#
+#### SETUP ####################################################################
+set -o errexit
+set -o nounset
+
+prog="${0##*/}"
+usage="\
+Usage   ${prog} RED GREEN BLUE
+        ${prog} -h
+
+Set iTerm2 window color.
+"
+
+#### FUNCTIONS ################################################################
+
+error_and_exit() {
+    # Print error message, then exit with exit status of 1.
+    echo "ERROR: ${1}" 1>&2
+    exit ${2:-1}
+}
+
+help_print() {
+    # Print help/usage, then exit (incorrect usage should exit 2).
+    # Default exit status is 0.
+    echo "${usage}"
+    exit ${1:-0}
+}
+
+help_request_check() {
+    # Determine if help/usage has been requested and print it
+    for _arg in "${@}"
+    do
+        case "${_arg}" in
+            '-H' | '-h' | '-help' | '--help' | 'help' ) help_print ;;
+        esac
+    done
+    return 0
+}
+
+#### MAIN #####################################################################
+
+# Parse arguments
+help_request_check "${@:-}"
+R=${1:-}
+G=${2:-}
+B=${3:-}
+
+# Validate arguments
+[ -n "${R}" ] || error_and_exit 'missing R value' 2
+[ "${R}" -ge 0 ] || error_and_exit 'invalid R value (must be >= 0)' 2
+[ "${R}" -le 255 ] || error_and_exit 'invalid R value (must be <= 255)' 2
+[ -n "${G}" ] || error_and_exit 'missing G value' 2
+[ "${G}" -ge 0 ] || error_and_exit 'invalid G value (must be >= 0)' 2
+[ "${G}" -le 255 ] || error_and_exit 'invalid G value (must be <= 255)' 2
+[ -n "${B}" ] || error_and_exit 'missing B value' 2
+[ "${B}" -ge 0 ] || error_and_exit 'invalid B value (must be >= 0)' 2
+[ "${B}" -le 255 ] || error_and_exit 'invalid B value (must be <= 255)' 2
+[ -z "${4:-}" ] || error_and_exit 'too many arguments. See --help' 2
+
+# Output to stderr to prevent noise when used with SSH LocalCommand, etc.
+printf '\e]6;1;bg;red;brightness;%d\a' ${R} 1>&2
+printf '\e]6;1;bg;green;brightness;%d\a' ${G} 1>&2
+printf '\e]6;1;bg;blue;brightness;%d\a' ${B} 1>&2
+
+# https://iterm2.com/documentation-escape-codes.html
