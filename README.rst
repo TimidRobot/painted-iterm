@@ -64,8 +64,8 @@ used at many shops::
     source /usr/local/share/painted_iterm_include.sh
 
 
-Bin Scripts
-===========
+Helper Functions and Scripts
+============================
 
 |painted-ansi|_ :
     paints window color based on ANSI color code.
@@ -73,6 +73,9 @@ Bin Scripts
     paints window color based on R G B values.
 |painted-colors|_ :
     shows 256 ANSI color codes.
+|painted-config|_ :
+    shows currently configured paint scheme (outputs formatted
+    ``PAINTED_CONFIG`` provided your ``.bashrc`` is configured correctly)
 
 .. |painted-ansi| replace:: ``bin/painted-ansi``
 .. _painted-ansi: bin/painted-ansi
@@ -80,7 +83,8 @@ Bin Scripts
 .. _painted-rgb: bin/painted-rgb
 .. |painted-colors| replace:: ``bin/painted-colors``
 .. _painted-colors: bin/painted-colors
-
+.. |painted-config| replace:: ``painted-config`` (function)
+.. _painted-config: painted_iterm_include.sh
 
 
 Resources
