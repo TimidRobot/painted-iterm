@@ -1,4 +1,5 @@
 # Test bashrc file called by test.sh
+# https://github.com/TimZehta/painted-iterm
 
 # If not running interactively, don't do anything
 [[ -n "${PS1:-}" ]] || return 0
@@ -8,7 +9,7 @@
 export TERM=xterm-256color
 
 # Label             Match Pattern                               ANSI Color
-PAINTED_CONFIG='
+export PAINTED_CONFIG='
 Laptop              ^lappy$                                     8
 Bastions            ^bastion                                    52
 Office              ^192\.168\.0\.                              18
