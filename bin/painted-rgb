@@ -1,47 +1,50 @@
-#!/bin/sh
-#
-# Set iterm2 window color
-#
-# Compatible with dash (compatible with POSIX 1003.2 and 1003.2a specifications
-# for the shell).
-#
+#!/bin/bash
+# https://github.com/TimZehta/painted-iterm
 #### SETUP ####################################################################
 set -o errexit
 set -o nounset
 
 prog="${0##*/}"
-usage="\
-Usage   ${prog} RED GREEN BLUE
+usage="
+Usage:  ${prog} RED GREEN BLUE
         ${prog} -h
 
-Set iTerm2 window color.
+Set iTerm2 window color based on R G B values.
 "
 
 #### FUNCTIONS ################################################################
 
+
 error_and_exit() {
-    # Print error message, then exit with exit status of 1.
+    # Print error message, then exit with specified exit status (defaults to 1)
     echo "ERROR: ${1}" 1>&2
     exit ${2:-1}
 }
 
+
 help_print() {
-    # Print help/usage, then exit (incorrect usage should exit 2).
-    # Default exit status is 0.
+    # Print help/usage
     echo "${usage}"
-    exit ${1:-0}
+    exit 0
 }
+
 
 help_request_check() {
     # Determine if help/usage has been requested and print it
+    shopt -s nocasematch
     for _arg in "${@}"
     do
         case "${_arg}" in
-            '-H' | '-h' | '-help' | '--help' | 'help' ) help_print ;;
+            '-h' | '-help' | '--help' | 'help' )
+                shopt -u nocasematch
+                help_print
+                ;;
         esac
     done
+    shopt -u nocasematch
     return 0
 }
+
 
 #### MAIN #####################################################################
 
@@ -52,20 +55,18 @@ G=${2:-}
 B=${3:-}
 
 # Validate arguments
-[ -n "${R}" ] || error_and_exit 'missing R value' 2
-[ "${R}" -ge 0 ] || error_and_exit 'invalid R value (must be >= 0)' 2
-[ "${R}" -le 255 ] || error_and_exit 'invalid R value (must be <= 255)' 2
-[ -n "${G}" ] || error_and_exit 'missing G value' 2
-[ "${G}" -ge 0 ] || error_and_exit 'invalid G value (must be >= 0)' 2
-[ "${G}" -le 255 ] || error_and_exit 'invalid G value (must be <= 255)' 2
-[ -n "${B}" ] || error_and_exit 'missing B value' 2
-[ "${B}" -ge 0 ] || error_and_exit 'invalid B value (must be >= 0)' 2
-[ "${B}" -le 255 ] || error_and_exit 'invalid B value (must be <= 255)' 2
-[ -z "${4:-}" ] || error_and_exit 'too many arguments. See --help' 2
+[[ -n "${R}" ]] || error_and_exit 'missing R value' 2
+(( R >= 0 )) || error_and_exit 'invalid R value (must be >= 0)' 2
+(( R <= 255 )) || error_and_exit 'invalid R value (must be <= 255)' 2
+[[ -n "${G}" ]] || error_and_exit 'missing G value' 2
+(( G >= 0 )) || error_and_exit 'invalid G value (must be >= 0)' 2
+(( G <= 255 )) || error_and_exit 'invalid G value (must be <= 255)' 2
+[[ -n "${B}" ]] || error_and_exit 'missing B value' 2
+(( B >= 0 )) || error_and_exit 'invalid B value (must be >= 0)' 2
+(( B <= 255 )) || error_and_exit 'invalid B value (must be <= 255)' 2
+[[ -z "${4:-}" ]] || error_and_exit 'too many arguments, see --help' 2
 
 # Output to stderr to prevent noise when used with SSH LocalCommand, etc.
 printf '\e]6;1;bg;red;brightness;%d\a' ${R} 1>&2
 printf '\e]6;1;bg;green;brightness;%d\a' ${G} 1>&2
 printf '\e]6;1;bg;blue;brightness;%d\a' ${B} 1>&2
-
-# https://iterm2.com/documentation-escape-codes.html
