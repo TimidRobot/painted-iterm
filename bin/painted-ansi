@@ -59,28 +59,32 @@ ansi_to_rgb=(   000-000-000 128-000-000 000-128-000 128-128-000 000-000-128
 
 
 error_and_exit() {
-    # Print error message, then exit with exit status of 1.
+    # Print error message, then exit with specified exit status (defaults to 1)
     echo "ERROR: ${1}" 1>&2
     exit ${2:-1}
 }
 
 
 help_print() {
-    # Print help/usage, then exit (incorrect usage should exit 2).
-    # Default exit status is 0.
+    # Print help/usage
     echo "${usage}"
-    exit ${1:-0}
+    exit 0
 }
 
 
 help_request_check() {
     # Determine if help/usage has been requested and print it
+    shopt -s nocasematch
     for _arg in "${@}"
     do
         case "${_arg}" in
-            '-H' | '-h' | '-help' | '--help' | 'help' ) help_print ;;
+            '-h' | '-help' | '--help' | 'help' )
+                shopt -u nocasematch
+                help_print
+                ;;
         esac
     done
+    shopt -u nocasematch
     return 0
 }
 
@@ -97,6 +101,7 @@ ansi=${1:-}
     || error_and_exit 'invalid ANSI color value (must be >= 0)' 2
 (( ansi <= 255 )) \
     || error_and_exit 'invalid ANSI color value (must be <= 255)' 2
+[[ -z "${2:-}" ]] || error_and_exit 'too many arguments, see --help' 2
 
 rgb=${ansi_to_rgb[${ansi}]}
 # extract values and convert from base10 to base10 to drop leading zeros
