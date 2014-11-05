@@ -41,7 +41,7 @@ The following example paints the iTerm2 window color bright red::
     Host dev-server
         HostName dev-server.example.com
         User admin
-        LocalCommand painted-label DEV
+        LocalCommand painted-label PROD
 
     Host *
         PermitLocalCommand yes
