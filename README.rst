@@ -31,7 +31,8 @@ The SSH configuration is the easiest way to configure iTerm2 window colors. It
 is also the only way to do so for appliances that don't have a bash shell. The
 SSH configuration is most commonly done only locally in ``~/.ssh/config``.
 
-The following example paints the iTerm2 window color bright red::
+The following example paints the iTerm2 window color of prod-firewall bright
+red and paints the iTerm2 window color of dev-server green::
 
     Host prod-firewall
         HostName prod-firewall.example.com
@@ -41,7 +42,7 @@ The following example paints the iTerm2 window color bright red::
     Host dev-server
         HostName dev-server.example.com
         User admin
-        LocalCommand painted-label PROD
+        LocalCommand painted-label DEV
 
     Host *
         PermitLocalCommand yes
@@ -103,7 +104,6 @@ Screenshots
 -----------
 
 |painted-colors_png|
-
 |painted-config_png|
 
 .. |painted-colors_png| image:: painted-colors.png
