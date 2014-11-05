@@ -1,7 +1,11 @@
-# Sets iTerm2 window color based on configuration and exports the same color
-# as ENV_COLOR for use in prompts.
+# Include file to be sourced by .bashrc
+# https://github.com/TimZehta/painted-iterm
 #
-# iTerm2 window color is set via a function call added to PROMPT_COMMAND.
+# Exports the ANSI color code specified in PAINTED_CONFIG as the variable
+# PAINTED. The PAINTED variable can then be used for custom prompts,
+# setting the window title via bin/painted-label, etc.
+#
+# Also sets paints current window PAINTED color.
 #
 # Requires Bash version 3 or later
 
