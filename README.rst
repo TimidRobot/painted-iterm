@@ -47,6 +47,9 @@ red and paints the iTerm2 window color of dev-server green::
     Host *
         PermitLocalCommand yes
 
+The ``painted-label`` example requires the ``.bashrc`` configuration below (so
+that the ``PAINTED_CONFIG`` varible is available).
+
 
 ``.bashrc`` Configuration
 =========================
