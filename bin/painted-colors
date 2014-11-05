@@ -1,16 +1,16 @@
 #!/bin/bash
+# https://github.com/TimZehta/painted-iterm
 #### SETUP ####################################################################
 set -o errexit
 set -o nounset
 
 prog="${0##*/}"
 usage="\
-Usage   ${prog}
+Usage:  ${prog}
         ${prog} -h
 
-Show ANSI color codes for 256 colors
+Show ANSI 256 color codes.
 "
-
 
 #### FUNCTIONS ################################################################
 
@@ -38,39 +38,39 @@ color_block() {
 
 
 help_print() {
-    # Print help/usage, then exit
+    # Print help/usage
     echo "${usage}"
-    exit ${1:-0}
+    exit 0
 }
 
 
 help_request_check() {
     # Determine if help/usage has been requested and print it
+    shopt -s nocasematch
     for _arg in "${@}"
     do
         case "${_arg}" in
-            '-H' | '-h' | '-help' | '--help' | 'help' ) help_print ;;
+            '-h' | '-help' | '--help' | 'help' )
+                shopt -u nocasematch
+                help_print
+                ;;
         esac
     done
+    shopt -u nocasematch
     return 0
 }
 
 
 #### MAIN #####################################################################
 
-
 # Parse arguments
 help_request_check "${@:-}"
 
 # 16 colors
 echo
-for _a in {0..7}
+for _a in {0..15}
 do
-    color_block ${_a}
-done
-echo
-for _a in {8..15}
-do
+    (( _a == 8 )) && echo
     color_block ${_a}
 done
 echo
@@ -84,7 +84,7 @@ do
     color_block ${_a}
     if (( col_index < 5 ))
     then
-        col_index=$(( col_index + 1))
+        col_index=$(( col_index + 1 ))
     else
         echo
         col_index=0
