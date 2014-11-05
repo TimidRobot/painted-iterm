@@ -27,6 +27,10 @@ Install
 SSH Configuration
 =================
 
+The SSH configuration is the easiest way to configure iTerm2 window colors. It
+is also the only way to do so for appliances that don't have a bash shell. The
+SSH configuration is most commonly done only locally in ``~/.ssh/config``.
+
 The following example paints the iTerm2 window color bright red::
 
     Host prod-firewall
@@ -34,16 +38,13 @@ The following example paints the iTerm2 window color bright red::
         User admin
         LocalCommand painted-ansi 1
 
-
-    # ...
-
+    Host dev-server
+        HostName dev-server.example.com
+        User admin
+        LocalCommand painted-label DEV
 
     Host *
         PermitLocalCommand yes
-
-The SSH configuration is the easiest way to configure iTerm2 window colors. It
-is also the only way to do so for appliances that don't have a bash shell. The
-SSH configuration is most commonly done only locally in ``~/.ssh/config``.
 
 
 ``.bashrc`` Configuration
@@ -55,7 +56,7 @@ used at many shops::
     export TERM=xterm-256color
 
     # Label             Match Pattern                               ANSI Color
-    PAINTED_CONFIG='
+    export PAINTED_CONFIG='
     Laptop              ^lappy$                                     8
     Bastions            ^bastion                                    52
     Office              ^192\.168\.0\.                              18
@@ -75,6 +76,9 @@ Helper Functions and Scripts
 
 |painted-ansi|_ :
     paints window color based on ANSI color code.
+|painted-label|_ :
+    paints window color based on configured label (requires export of
+    ``PAINTED_CONFIG``).
 |painted-rgb|_ :
     paints window color based on R G B values.
 |painted-colors|_ :
@@ -85,12 +89,27 @@ Helper Functions and Scripts
 
 .. |painted-ansi| replace:: ``bin/painted-ansi``
 .. _painted-ansi: bin/painted-ansi
+.. |painted-label| replace:: ``bin/painted-label``
+.. _painted-label: bin/painted-label
 .. |painted-rgb| replace:: ``bin/painted-rgb``
 .. _painted-rgb: bin/painted-rgb
 .. |painted-colors| replace:: ``bin/painted-colors``
 .. _painted-colors: bin/painted-colors
 .. |painted-config| replace:: ``painted-config`` (function)
 .. _painted-config: painted_iterm_include.sh
+
+
+Screenshots
+-----------
+
+|painted-colors_png|
+
+|painted-config_png|
+
+.. |painted-colors_png| image:: painted-colors.png
+   :alt: painted-colors screenshot
+.. |painted-config_png| image:: painted-config.png
+   :alt: painted-config screenshot
 
 
 Resources
