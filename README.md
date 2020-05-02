@@ -1,5 +1,10 @@
 # painted-iterm
 
+> :warning: This project is no longer supported due to two reasons:
+> 1. macOS does not allow window modifications (only the tab color changes)
+> 2. Best practices for SSH include using master control sessions and SSH
+>    local commands are per connection, not per session.
+
 `painted-iterm` allows you to configure the color of your [iTerm2][iterm2]
 windows based on the hostname, IP, or SSH configuration. This allows you to
 color code your windows to help prevent errors. It supports 256 colors.
